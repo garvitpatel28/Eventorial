@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); // Ensure the correct path to the User model
+const User = require('../models/User'); 
 const jwt = require('jsonwebtoken');
 
-// Your existing route code
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -24,12 +23,11 @@ router.post('/login', async (req, res) => {
     res.status(200).json({
       message: 'Login successful',
       token,
-      userType: user.userType, // Return userType
+      userType: user.userType,
     });
   } catch (err) {
     res.status(500).json({ message: 'Error logging in user', error: err });
   }
 });
 
-// Export the router
 module.exports = router;

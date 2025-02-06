@@ -26,7 +26,7 @@ mongoose
       await User.create({
         name: 'Admin',
         email: adminEmail,
-        password: 'admin', // Will be hashed automatically by the pre-save hook
+        password: 'admin', 
         userType: 'admin',
       });
       console.log('Admin user created');

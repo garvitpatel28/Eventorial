@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './SignUp.css'; // Import the CSS file for styling
+import './SignUp.css'; 
 
 function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [userType, setUserType] = useState('user'); // 'user' or 'organizer'
+  const [userType, setUserType] = useState('user');
   const navigate = useNavigate();
 
   const handleSignUp = async () => {
@@ -22,9 +22,9 @@ function SignUp() {
         name,
         email,
         password,
-        userType, // Include userType in the request
+        userType, 
       });
-      alert(response.data.message); // On success, show message
+      alert(response.data.message); 
 
       // Redirect based on user type
       if (userType === 'user') {

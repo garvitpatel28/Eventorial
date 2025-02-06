@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; // Import the CSS file for styling
+import './Login.css'; 
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -22,7 +22,7 @@ function Login() {
   
       // Redirect based on userType
       if (response.data.userType === 'admin') {
-        navigate('/admin-dashboard'); // Redirect to admin dashboard
+        navigate('/admin-dashboard'); 
       } else if (response.data.userType === 'user') {
         navigate('/events');
       } else if (response.data.userType === 'organizer') {

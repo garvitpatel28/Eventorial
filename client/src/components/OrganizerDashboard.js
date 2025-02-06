@@ -1,5 +1,5 @@
 import React from 'react';
-import './OrganizerDashboard.css'; // Import CSS for styling
+import './OrganizerDashboard.css';
 
 function OrganizerDashboard() {
   return (

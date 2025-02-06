@@ -1,5 +1,5 @@
 import React from 'react';
-import './EventsPage.css'; // Import the CSS file for styling
+import './EventsPage.css';
 
 function EventsPage() {
   const popularEvents = [

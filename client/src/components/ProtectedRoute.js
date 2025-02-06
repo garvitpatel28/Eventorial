@@ -2,14 +2,14 @@ import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectedRoute = ({ allowedUserTypes }) => {
-  const userType = localStorage.getItem('userType'); // Get userType from localStorage
+  const userType = localStorage.getItem('userType'); 
 
   // Check if the user is logged in and has the correct userType
   if (!userType || !allowedUserTypes.includes(userType)) {
-    return <Navigate to="/login" />; // Redirect to login if not authorized
+    return <Navigate to="/login" />; 
   }
 
-  return <Outlet />; // Render the protected component
+  return <Outlet />; 
 };
 
 export default ProtectedRoute;
