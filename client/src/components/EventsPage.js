@@ -144,12 +144,9 @@ function EventsPage() {
       <footer className="footer">
         <div className="footer-section">
           <h3>Company Info</h3>
-          <p>Alexi S.</p>
-          <p>Amanda S.</p>
-          <p>Emma S.</p>
-          <p>Kate</p>
-          <p>Susan K. Brown</p>
-          <p>Penny Riley</p>
+          <p>Garvit P.</p>
+          <p>Namrata P.</p>
+          <p>Abrar A.</p>
         </div>
         <div className="footer-section">
           <h3>Help</h3>
