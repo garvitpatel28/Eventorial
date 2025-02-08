@@ -66,16 +66,6 @@ function SignUp() {
             />
             Organizer
           </label>
-          <label>
-            <input
-              type="radio"
-              name="userType"
-              value="admin"
-              checked={userType === 'admin'}
-              onChange={() => setUserType('admin')}
-            />
-            Admin
-          </label>
         </div>
         <div className="social-signup">
           <button className="social-button-google">
