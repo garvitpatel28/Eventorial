@@ -44,6 +44,7 @@ function SignUp() {
         <h2>Sign in for personalized recommendations today!</h2>
       </div>
       <div className="signup-box">
+      <h2>Sign Up</h2>
         <div className="user-type-selector">
           <label>
             <input
