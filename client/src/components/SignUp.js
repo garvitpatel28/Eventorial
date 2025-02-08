@@ -39,9 +39,11 @@ function SignUp() {
 
   return (
     <div className="signup-container">
+      <div class="h2-container">
+        <h2>Discovered tailored events.</h2>
+        <h2>Sign in for personalized recommendations today!</h2>
+      </div>
       <div className="signup-box">
-        <h2>Sign Up</h2>
-        <p>Sign up for personalized recommendations today!</p>
         <div className="user-type-selector">
           <label>
             <input
@@ -65,10 +67,10 @@ function SignUp() {
           </label>
         </div>
         <div className="social-signup">
-          <button className="social-button google">
+          <button className="social-button-google">
             Sign up with Google
           </button>
-          <button className="social-button facebook">
+          <button className="social-button-facebook">
             Sign up with Facebook
           </button>
         </div>

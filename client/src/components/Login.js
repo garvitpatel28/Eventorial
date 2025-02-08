@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import './Login.css'; 
+import './Login.css';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -15,14 +15,14 @@ function Login() {
         password,
       });
       alert(response.data.message);
-  
+
       // Save token and userType
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userType', response.data.userType);
-  
+
       // Redirect based on userType
       if (response.data.userType === 'admin') {
-        navigate('/admin-dashboard'); 
+        navigate('/admin-dashboard');
       } else if (response.data.userType === 'user') {
         navigate('/events');
       } else if (response.data.userType === 'organizer') {
@@ -35,12 +35,16 @@ function Login() {
 
   return (
     <div className="login-container">
+
+      <div class="h2-container">
+        <h2>Discovered tailored events.</h2>
+        <h2>Sign in for personalized recommendations today!</h2>
+      </div>
       <div className="login-box">
         <h2>Login</h2>
-        <p>Sign in for personalized recommendations today!</p>
         <div className="social-login">
-          <button className="social-button google">Login with Google</button>
-          <button className="social-button facebook">Login with Facebook</button>
+          <button className="social-button-google">Login with Google</button>
+          <button className="social-button-facebook">Login with Facebook</button>
         </div>
         <div className="divider">
           <span>OR</span>
