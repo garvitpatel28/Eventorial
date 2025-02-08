@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 90%;
+  height: 100%;
   width:208vh;
   background-color: #df1414;
   }
@@ -10,11 +10,11 @@
   .signup-box {
     background: white;
     padding: 2rem;
-    border-top-left-radius: 50px;
-    border-bottom-left-radius: 50px;
+    border-radius: 20px 0px 20px 0px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     height: 90%;
     width: 170%;
+    margin: 20px;
     max-width: 900px;
     text-align: center;
   }
@@ -23,6 +23,7 @@
     margin-bottom: 1rem;
     font-size: 2.8rem;
     color: #faf9f9;
+    padding: 20px;
   }
   .signup-box h2 {
     margin-bottom: 1rem;
