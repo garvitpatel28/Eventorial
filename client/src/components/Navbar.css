@@ -77,13 +77,11 @@
   }
   
   .btn-login {
-    border: 2px solid rgba(255,255,255,0.3);
+    border: 0px solid rgba(255,255,255,0.3);
   }
   
   .btn-signup {
-    background: white;
-    color: #6366f1;
-    font-weight: 600 !important;
+    border: 0px solid rgba(255,255,255,0.3);
   }
   
   .btn-signup:hover{
@@ -114,4 +112,17 @@
     .nav-link {
       margin: 8px 0;
     }
+  }
+  .btn-logout {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-logout:hover {
+    opacity: 0.8;
   }

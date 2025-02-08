@@ -16,11 +16,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
-
-        {/* Protected Routes */}
-        <Route element={<ProtectedRoute allowedUserTypes={['user', 'organizer']} />}>
-          <Route path="/events" element={<EventsPage />} />
-        </Route>
+        <Route path="/events" element={<EventsPage />} />
+       
         <Route element={<ProtectedRoute allowedUserTypes={['organizer']} />}>
           <Route path="/organizer-dashboard" element={<OrganizerDashboard />} />
         </Route>

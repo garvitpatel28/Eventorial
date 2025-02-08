@@ -24,6 +24,7 @@ function Login() {
       if (response.data.userType === 'admin') {
         navigate('/admin-dashboard');
       } else if (response.data.userType === 'user') {
+        
         navigate('/events');
       } else if (response.data.userType === 'organizer') {
         navigate('/organizer-dashboard');
