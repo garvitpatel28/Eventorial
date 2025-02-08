@@ -54,7 +54,7 @@ function SignUp() {
               checked={userType === 'user'}
               onChange={() => setUserType('user')}
             />
-            Normal User
+            User
           </label>
           <label>
             <input
@@ -65,6 +65,16 @@ function SignUp() {
               onChange={() => setUserType('organizer')}
             />
             Organizer
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="userType"
+              value="admin"
+              checked={userType === 'admin'}
+              onChange={() => setUserType('admin')}
+            />
+            Admin
           </label>
         </div>
         <div className="social-signup">

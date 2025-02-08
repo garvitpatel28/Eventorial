@@ -4,14 +4,14 @@
   align-items: center;
   height: 90%;
   width:208vh;
-  background-color: #ee3131;
+  background-color: #df1414;
   }
   
   .signup-box {
     background: white;
     padding: 2rem;
-    border-top-left-radius: 80px;
-    border-bottom-left-radius: 80px;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     height: 90%;
     width: 170%;
