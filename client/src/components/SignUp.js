@@ -28,12 +28,12 @@ function SignUp() {
 
       // Redirect based on user type
       if (userType === 'user') {
-        navigate('/events'); // Redirect to Event Page for normal users
+        navigate('/events'); 
       } else if (userType === 'organizer') {
-        navigate('/organizer-dashboard'); // Redirect to Organizer Dashboard for organizers
+        navigate('/organizer-dashboard');
       }
     } catch (err) {
-      alert(err.response.data.message); // Show error message if registration fails
+      alert(err.response.data.message);
     }
   };
 
