@@ -91,17 +91,18 @@ function EventsPage() {
       <section className="explore-categories">
         <h2>Explore Categories</h2>
         <div className="categories">
-          <span>Entertainment</span>
-          <span>Educational & Business</span>
-          <span>Cultural & Arts</span>
-          <span>Sports & Fitness</span>
-          <span>Technology & Innovation</span>
-          <span>Travel & Adventure</span>
+          <span>Music</span>
+          <span>Sports</span>
+          <span>Conference</span>
+          <span>Workshop</span>
+          <span>Festival</span>
+          <span>Art</span>
+          <span>Other</span>
         </div>
       </section>
 
       <section className="popular-events">
-        <h2>Popular Events in Kitchener</h2>
+        <h2>Popular Events </h2>
         <div className="events-list">
           {popularEvents.map((event, index) => (
             <div key={index} className="event-card">

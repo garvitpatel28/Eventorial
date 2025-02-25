@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const User = require('./models/User');
+const Event = require('./models/Event'); // Make sure to import your Event model
 
 dotenv.config();
 
@@ -20,19 +21,79 @@ mongoose
 
     // Create admin user if it doesn't exist
     const adminEmail = 'admin@eventorial.com';
-    const admin = await User.findOne({ email: adminEmail });
+    let admin = await User.findOne({ email: adminEmail });
 
     if (!admin) {
-      await User.create({
+      admin = await User.create({
         name: 'Admin',
         email: adminEmail,
-        password: 'admin', 
+        password: 'admin',
         userType: 'admin',
       });
       console.log('Admin user created');
     }
+
+    // Add dummy events
+    await createDummyEvents(admin._id);
   })
   .catch(err => console.log(err));
+
+// Dummy data creation function
+async function createDummyEvents(adminId) {
+  try {
+    const existingEvents = await Event.countDocuments();
+    
+    if (existingEvents === 0) {
+      const dummyEvents = [
+        {
+          title: "Summer Music Festival",
+          description: "Annual summer music festival featuring top artists",
+          date: new Date('2024-07-15'),
+          time: "18:00",
+          venue: "Central Park, New York",
+          ticketAvailability: 5000,
+          organizer: adminId,
+          category: "Music"
+        },
+        {
+          title: "Tech Conference 2024",
+          description: "International technology and innovation conference",
+          date: new Date('2024-09-20'),
+          time: "09:00",
+          venue: "Convention Center, San Francisco",
+          ticketAvailability: 1000,
+          organizer: adminId,
+          category: "Conference"
+        },
+        {
+          title: "Marathon City Run",
+          description: "Annual city marathon for all fitness levels",
+          date: new Date('2024-05-10'),
+          time: "07:30",
+          venue: "City Central Stadium",
+          ticketAvailability: 2000,
+          organizer: adminId,
+          category: "Sports"
+        },
+        {
+          title: "Art Exhibition Opening",
+          description: "Modern art exhibition featuring emerging artists",
+          date: new Date('2024-06-01'),
+          time: "19:00",
+          venue: "Contemporary Art Museum",
+          ticketAvailability: 300,
+          organizer: adminId,
+          category: "Art"
+        }
+      ];
+
+      await Event.insertMany(dummyEvents);
+      console.log('Dummy events created successfully');
+    }
+  } catch (error) {
+    console.error('Error creating dummy events:', error.message);
+  }
+}
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));
