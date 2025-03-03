@@ -8,6 +8,8 @@ import EventsPage from './components/EventsPage';
 import OrganizerDashboard from './components/OrganizerDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './components/AdminDashboard';
+import TicketBooking from './components/TicketBooking';
+import PaymentPage from './components/PaymentPage';
 
 function App() {
   return (
@@ -26,6 +28,10 @@ function App() {
         </Route>
         {/* Default Route */}
         <Route path="/" element={<Navigate to="/login" />} />
+
+        <Route path="/book-ticket/:eventId" element={<TicketBooking />} />
+        <Route path="/book-ticket" element={<TicketBooking />} />
+        <Route path="/payment" element={<PaymentPage />} />
       </Routes>
     </Router>
   );

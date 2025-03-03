@@ -4,6 +4,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const User = require('./models/User');
 const Event = require('./models/Event');
+const Ticket = require('./models/Ticket');
 
 dotenv.config();
 
@@ -12,7 +13,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: 'http://localhost:3000', // Replace with your frontend URL
+  origin: 'http://localhost:3000',
   credentials: true,
 }));
 
@@ -109,6 +110,19 @@ app.get('/events', async (req, res) => {
     res.status(500).json({ message: 'Error fetching events', error: error.message });
   }
 });
+
+app.get('/book-ticket', async (req, res) => {
+  try {
+    const ticket = new Ticket(req.body);
+    await ticket.save();
+    res.status(201).send({ message: 'Ticket booked successfully!' });
+  } catch (error) {
+    console.error('Error booking ticket:', error); // Debugging
+    res.status(500).send({ message: 'Error booking ticket', error: error.message });
+  }
+});
+
+
 
 // Routes
 app.use('/api/auth', require('./routes/auth'));

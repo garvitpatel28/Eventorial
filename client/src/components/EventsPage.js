@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './EventsPage.css';
 
 function EventsPage() {
   const [events, setEvents] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('All'); // Default to 'All'
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -62,6 +64,7 @@ function EventsPage() {
                   <p>{new Date(event.date).toLocaleDateString()}</p>
                   <p>{event.description}</p>
                   <p className="distance">{event.venue}</p>
+                  <button onClick={() => navigate(`/book-ticket/${event._id}`)}>Book Ticket</button>
                 </div>
               </div>
             ))
