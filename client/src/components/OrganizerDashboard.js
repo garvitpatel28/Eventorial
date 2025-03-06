@@ -1,7 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './OrganizerDashboard.css';
 
 function OrganizerDashboard() {
+  const navigate = useNavigate();
+
   return (
     <div className="organizer-dashboard">
       <h1>Organizer Dashboard</h1>
@@ -10,6 +13,9 @@ function OrganizerDashboard() {
         <div className="card">
           <h2>Create Event</h2>
           <p>Create and manage your events here.</p>
+          <button className="admin-button primary" onClick={() => navigate('/create-event')}>
+            Create Event
+          </button>
         </div>
         <div className="card">
           <h2>View Events</h2>

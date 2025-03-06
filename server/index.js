@@ -1,3 +1,4 @@
+// server/index.js
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -111,22 +112,10 @@ app.get('/events', async (req, res) => {
   }
 });
 
-app.get('/book-ticket', async (req, res) => {
-  try {
-    const ticket = new Ticket(req.body);
-    await ticket.save();
-    res.status(201).send({ message: 'Ticket booked successfully!' });
-  } catch (error) {
-    console.error('Error booking ticket:', error); // Debugging
-    res.status(500).send({ message: 'Error booking ticket', error: error.message });
-  }
-});
-
-
-
 // Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/user', require('./routes/user'));
+app.use('/api/events', require('./routes/event')); // Add this line
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

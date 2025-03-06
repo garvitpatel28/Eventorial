@@ -1,0 +1,95 @@
+/* CreateEvent.css */
+
+.create-event {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .create-event h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #333;
+    font-size: 2rem;
+  }
+  
+  .create-event form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .create-event .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .create-event .form-group label {
+    font-weight: 600;
+    color: #555;
+  }
+  
+  .create-event .form-group input,
+  .create-event .form-group textarea,
+  .create-event .form-group select {
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .create-event .form-group input:focus,
+  .create-event .form-group textarea:focus,
+  .create-event .form-group select:focus {
+    border-color: #007bff;
+  }
+  
+  .create-event .form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .create-event button {
+    padding: 0.75rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-event button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .create-event {
+      padding: 1rem;
+      margin: 1rem;
+    }
+  
+    .create-event h2 {
+      font-size: 1.5rem;
+    }
+  
+    .create-event .form-group input,
+    .create-event .form-group textarea,
+    .create-event .form-group select {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+  
+    .create-event button {
+      padding: 0.5rem;
+      font-size: 0.9rem;
+    }
+  }
