@@ -6,10 +6,10 @@ const ProtectedRoute = ({ allowedUserTypes }) => {
 
   // Check if the user is logged in and has the correct userType
   if (!userType || !allowedUserTypes.includes(userType)) {
-    return <Navigate to="/login" />; 
+    return <Navigate to="/login" />;
   }
 
-  return <Outlet />; 
+  return <Outlet />;
 };
 
 export default ProtectedRoute;

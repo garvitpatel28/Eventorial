@@ -10,7 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './components/AdminDashboard';
 import TicketBooking from './components/TicketBooking';
 import PaymentPage from './components/PaymentPage';
-import CreateEvent from './components/CreateEvent'; // Import the CreateEvent component
+import CreateEvent from './components/CreateEvent';
 
 function App() {
   return (
@@ -23,16 +23,14 @@ function App() {
        
         <Route element={<ProtectedRoute allowedUserTypes={['organizer']} />}>
           <Route path="/organizer-dashboard" element={<OrganizerDashboard />} />
-          <Route path="/create-event" element={<CreateEvent />} /> {/* Add this route */}
+          <Route path="/create-event" element={<CreateEvent />} />
         </Route>
         <Route element={<ProtectedRoute allowedUserTypes={['admin']} />}>
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
         </Route>
-        {/* Default Route */}
         <Route path="/" element={<Navigate to="/login" />} />
 
         <Route path="/book-ticket/:eventId" element={<TicketBooking />} />
-        <Route path="/book-ticket" element={<TicketBooking />} />
         <Route path="/payment" element={<PaymentPage />} />
       </Routes>
     </Router>
