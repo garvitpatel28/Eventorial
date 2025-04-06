@@ -17,7 +17,7 @@ router.get('/user/:userId', authenticateUser, async (req, res) => {
     res.json(bookings);
   } catch (error) {
     console.error('Error fetching bookings:', error.message);
-    res.status(500).json({ message: 'Error fetching bookings', error: error.message });
+    res.status(500).json({ message: 'Error fetching the bookings', error: error.message });
   }
 });
 
