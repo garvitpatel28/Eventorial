@@ -11,14 +11,17 @@ function Login() {
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
-
+  
       alert(response.data.message);
-
-      // Save token and userType
+  
+      // Save token, userType, and userId
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userType', response.data.userType);
+      localStorage.setItem('userId', response.data.userId); // Ensure userId is stored
+  
       console.log("Saved Token:", response.data.token); // Debugging
-
+      console.log("Saved UserId:", response.data.userId); // Debugging
+  
       // Redirect based on userType
       if (response.data.userType === 'admin') {
         navigate('/admin-dashboard');
@@ -32,6 +35,7 @@ function Login() {
       alert(err.response?.data?.message || 'Login failed.');
     }
   };
+  
 
   return (
     <div className="login-container">

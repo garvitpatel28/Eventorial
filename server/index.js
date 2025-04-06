@@ -6,6 +6,10 @@ const dotenv = require('dotenv');
 const User = require('./models/User');
 const Event = require('./models/Event');
 const Ticket = require('./models/Ticket');
+const userRoutes = require('./routes/user');
+const eventRoutes = require('./routes/event');
+const bookingRoutes = require('./routes/Bookings');
+const authRoutes = require('./routes/auth');  // Added for auth routes
 
 dotenv.config();
 
@@ -15,7 +19,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:3000',
-  credentials: true,
+  credentials: true, // Ensure the frontend can send cookies with requests
 }));
 
 // MongoDB connection
@@ -38,16 +42,16 @@ mongoose
       console.log('Admin user created');
     }
 
-    // Add dummy events
+    // Add dummy events if no events exist
     await createDummyEvents(admin._id);
   })
   .catch(err => console.log(err));
 
-// Dummy data creation function
+// Dummy data creation function for events
 async function createDummyEvents(adminId) {
   try {
     const existingEvents = await Event.countDocuments();
-    
+
     if (existingEvents === 0) {
       const dummyEvents = [
         {
@@ -112,10 +116,31 @@ app.get('/events', async (req, res) => {
   }
 });
 
-// Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/user', require('./routes/user'));
-app.use('/api/events', require('./routes/event')); // Add this line
+// Routes for authentication, users, events, bookings
+app.use('/api/auth', authRoutes);  // Use authRoutes here
+app.use('/api/user', userRoutes);
+app.use('/api/events', eventRoutes);
+app.use('/api/bookings', bookingRoutes);
 
+// Ticket booking endpoint
+app.post('/book-ticket/', async (req, res) => {
+  try {
+    const ticketData = req.body;
+
+    if (!ticketData || !ticketData.firstName || !ticketData.eventId) {
+      return res.status(400).json({ message: 'Missing required ticket info' });
+    }
+
+    const newTicket = new Ticket(ticketData);
+    await newTicket.save();
+
+    res.status(201).json({ message: 'Ticket booked successfully', ticket: newTicket });
+  } catch (err) {
+    console.error('Error booking ticket:', err.message);
+    res.status(500).json({ message: 'Server error while booking ticket' });
+  }
+});
+
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

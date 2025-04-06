@@ -1,7 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/User'); 
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const authenticateUser = require('../middleware/auth'); // Correct import
+
+router.get('/user/:userId', authenticateUser, async (req, res) => {
+  const { userId } = req.params;
+
+  // Ensure the userId from the token matches the userId in the URL
+  if (req.user._id.toString() !== userId) {
+    return res.status(403).json({ message: 'Access denied' });
+  }
+
+  try {
+    const bookings = await Booking.find({ user: userId }).populate('event', 'title date venue');
+    res.json(bookings);
+  } catch (error) {
+    console.error('Error fetching bookings:', error.message);
+    res.status(500).json({ message: 'Error fetching bookings', error: error.message });
+  }
+});
 
 // Login route
 router.post('/login', async (req, res) => {
@@ -29,11 +47,12 @@ router.post('/login', async (req, res) => {
     user.tokens = user.tokens.concat({ token });
     await user.save();
 
-    // Send response with token
+    // Send response with token, userType, and userId
     res.status(200).json({
       message: 'Login successful',
       token,
       userType: user.userType,
+      userId: user._id,  // Send userId as part of the response
     });
   } catch (err) {
     console.error('Error in login:', err);
@@ -41,6 +60,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Signup route
 router.post('/signup', async (req, res) => {
   const { name, email, password, userType } = req.body;
 
@@ -60,4 +80,19 @@ router.post('/signup', async (req, res) => {
     res.status(500).json({ message: 'Server error', error: err.message });
   }
 });
+
+// Logout route
+router.post('/logout', (req, res) => {
+  try {
+    // Clear the JWT cookie if you're using cookies for storing tokens
+    res.clearCookie('token'); // Clear the token cookie if it's stored in cookies
+
+    // Send a response confirming logout
+    res.status(200).json({ message: 'Logged out successfully' });
+  } catch (error) {
+    console.error('Error during logout:', error.message);
+    res.status(500).json({ message: 'Error logging out', error: error.message });
+  }
+});
+
 module.exports = router;

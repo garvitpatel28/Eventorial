@@ -29,4 +29,42 @@ router.post('/create', auth, async (req, res) => {
   }
 });
 
+// Get all events by organizer ID
+router.get('/by-organizer/:organizerId', async (req, res) => {
+  try {
+    const events = await Event.find({ organizer: req.params.organizerId }).populate('organizer', 'name email');
+    if (events.length === 0) {
+      return res.status(404).json({ message: 'No events found for this organizer' });
+    }
+    res.json(events); // Send the events as an array
+  } catch (err) {
+    console.error('Error fetching events:', err.message);
+    res.status(500).json({ message: 'Error fetching events', error: err.message });
+  }
+});
+
+
+// GET /api/events/all
+router.get('/all', async (req, res) => {
+  try {
+    const events = await Event.find().populate('organizer', 'name email');
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to fetch events', error: err.message });
+  }
+});
+
+// DELETE an event by ID
+router.delete('/:id', async (req, res) => {
+  try {
+    const event = await Event.findByIdAndDelete(req.params.id);
+    if (!event) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+    res.json({ message: 'Event deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to delete event', error: error.message });
+  }
+});
+
 module.exports = router;
