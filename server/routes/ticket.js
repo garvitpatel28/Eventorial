@@ -13,7 +13,15 @@ router.get('/by-event/:eventId', async (req, res) => {
   }
 });
 
-
+router.get('/all', async (req, res) => {
+  try {
+    const tickets = await Ticket.find()
+      .populate('eventId', 'title date venue'); // Populate event details
+    res.json(tickets);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
   
 
 module.exports = router;

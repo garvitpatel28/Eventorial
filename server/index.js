@@ -116,11 +116,21 @@ app.get('/events', async (req, res) => {
     res.status(500).json({ message: 'Error fetching events', error: error.message });
   }
 });
+app.get('/tickets', async (req, res) => {
+  try {
+    const tickets = await Ticket.find()
+    .populate('eventId', 'title date venue'); 
+      console.log(tickets)
+    res.json(tickets);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
 
 app.get('/api/tickets/user/:userId', async (req, res) => {
   try {
     const tickets = await Ticket.find({ userId: req.params.userId })
-      .populate('eventId', 'title date venue'); // Use 'title' instead of 'name'
+      .populate('eventId', 'title date venue'); 
     res.json(tickets);
   } catch (err) {
     res.status(500).json({ error: 'Server error' });
