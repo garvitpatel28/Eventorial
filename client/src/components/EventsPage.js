@@ -6,6 +6,8 @@ function EventsPage() {
   const [events, setEvents] = useState([]);
   const [showBookings, setShowBookings] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [myBookings, setMyBookings] = useState([]);
+
   const navigate = useNavigate();
 
   // Fetch events
