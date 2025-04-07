@@ -3,21 +3,19 @@ const router = express.Router();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const authenticateUser = require('../middleware/auth'); // Correct import
+const Booking = require('../models/Booking');
+const Ticket = require('../models/Ticket');
+const auth = require('../middleware/auth'); 
 
-router.get('/user/:userId', authenticateUser, async (req, res) => {
-  const { userId } = req.params;
 
-  // Ensure the userId from the token matches the userId in the URL
-  if (req.user._id.toString() !== userId) {
-    return res.status(403).json({ message: 'Access denied' });
-  }
-
+// Delete a booking
+router.delete('/ticket/:id', auth, async (req, res) => {
   try {
-    const bookings = await Booking.find({ user: userId }).populate('event', 'title date venue');
-    res.json(bookings);
-  } catch (error) {
-    console.error('Error fetching bookings:', error.message);
-    res.status(500).json({ message: 'Error fetching the bookings', error: error.message });
+    const ticket = await Ticket.findByIdAndDelete(req.params.id);
+    if (!ticket) return res.status(404).json({ error: 'Booking not found' });
+    res.json({ message: 'Booking cancelled successfully' });
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
   }
 });
 
@@ -92,6 +90,19 @@ router.post('/logout', (req, res) => {
   } catch (error) {
     console.error('Error during logout:', error.message);
     res.status(500).json({ message: 'Error logging out', error: error.message });
+  }
+});
+
+router.get('/my-bookings', auth, async (req, res) => {
+  try {
+    // Now req.user is guaranteed to exist
+    const bookings = await Booking.find({ user: req.user._id })
+      .populate('event', 'name date');
+    
+    res.json(bookings);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Server error' });
   }
 });
 

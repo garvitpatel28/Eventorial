@@ -1,74 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios'; // Import axios
+import { useNavigate } from 'react-router-dom';
 import './EventsPage.css';
 
 function EventsPage() {
   const [events, setEvents] = useState([]);
+  const [showBookings, setShowBookings] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [showBookings, setShowBookings] = useState([]);
-  const [myBookings, setMyBookings] = useState([]);
   const navigate = useNavigate();
-  const location = useLocation();
 
-    // Handle booking of event
-    const handleBookTicket = async (eventId) => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:5000/api/bookings/book-event', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`,
-          },
-          body: JSON.stringify({ eventId }),
-        });
-    
-        const data = await response.json();
-        if (response.ok) {
-          alert('Booking successful!');
-          navigate('/my-bookings', { state: { bookingSuccess: true } });
-        } else {
-          alert(data.message || 'Booking failed');
-        }
-      } catch (err) {
-        console.error('Error booking event:', err);
-        alert('Error booking event');
-      }
-    };
-    
-
-  const handleViewBookings = async () => {
-    try {
-      const token = localStorage.getItem('token');  // Ensure token is available in localStorage
-      const userId = localStorage.getItem('userId'); // Ensure userId is available in localStorage
-
-      if (!token || !userId) {
-        alert('User not logged in.');
-        return;
-      }
-
-      const response = await axios.get(`http://localhost:5000/api/bookings/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,  // Attach the token in Authorization header
-        },
-      });
-
-      // Handle the response
-      if (response.status === 200) {
-        // Update the state to show bookings
-        console.log('Bookings:', response.data);
-      }
-    } catch (error) {
-      console.error('Failed to load bookings:', error);
-      alert('Failed to load your bookings.');
-    }
-  };
-
+  // Fetch events
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        console.log('Fetching events from the backend...');
         const response = await fetch('http://localhost:5000/events');
         const data = await response.json();
         setEvents(data);
@@ -76,46 +19,8 @@ function EventsPage() {
         console.error('Error fetching events:', error);
       }
     };
-
     fetchEvents();
   }, []);
-
-  useEffect(() => {
-    if (location.state?.bookingSuccess) {
-      alert('Your event has been booked successfully!');
-    }
-  }, [location]);
-
-  const fetchMyBookings = async () => {
-    try {
-      const userId = localStorage.getItem("userId"); // Ensure userId is stored
-      if (!userId) {
-        alert("User not logged in.");
-        return;
-      }
-  
-      const token = localStorage.getItem("token");
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-  
-      // Fetch bookings for the logged-in user
-      const response = await fetch(`http://localhost:5000/api/bookings/user/${userId}`, { headers });
-      const data = await response.json();
-      
-      if (response.ok) {
-        console.log('Bookings:', data); // Check if you get data here
-        setMyBookings(data); // Update the state with the fetched bookings
-        setShowBookings(true); // Show the bookings section
-      } else {
-        alert("Error fetching bookings: " + data.message); // Handle errors
-      }
-    } catch (err) {
-      console.error("Error fetching bookings", err);
-      alert("Failed to load your bookings.");
-    }
-  };
-  
 
   const filteredEvents = selectedCategory === 'All'
     ? events
@@ -129,7 +34,10 @@ function EventsPage() {
           <input type="text" placeholder="Search Event" />
           <button>WatchGo</button>
         </div>
-        <button className="view-bookings-btn" onClick={fetchMyBookings}>
+        <button
+          className="view-bookings-btn"
+          onClick={() => navigate('/my-bookings')}
+        >
           View My Bookings
         </button>
       </header>

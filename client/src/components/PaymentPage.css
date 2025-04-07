@@ -1,0 +1,103 @@
+/* Container for the payment page form */
+.payment-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+  }
+  
+  /* Heading Style */
+  .payment-container h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  /* Label Style */
+  .payment-container label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  /* Input Fields Style */
+  .payment-container input,
+  .payment-container select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  /* Focus effect for inputs and selects */
+  .payment-container input:focus,
+  .payment-container select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 8px rgba(79, 70, 229, 0.2);
+    outline: none;
+  }
+  
+  /* Flexbox for input fields (expiry month, year) */
+  .flex-input-group {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .flex-input-group input {
+    flex: 1;
+  }
+  
+  /* Button Style */
+  .payment-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4f46e5;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Hover effect for button */
+  .payment-container button:hover {
+    background-color: #6c5ce7;
+    transform: translateY(-2px);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .payment-container {
+      padding: 20px;
+      max-width: 400px;
+    }
+  
+    .payment-container h2 {
+      font-size: 1.6rem;
+    }
+  
+    .flex-input-group {
+      flex-direction: column;
+    }
+  
+    .flex-input-group input {
+      margin-bottom: 10px;
+    }
+  
+    .payment-container button {
+      font-size: 1rem;
+    }
+  }
+  

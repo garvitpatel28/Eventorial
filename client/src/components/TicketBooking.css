@@ -1,0 +1,103 @@
+/* Container for the ticket booking form */
+.ticket-booking-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+  }
+  
+  /* Heading Style */
+  .ticket-booking-container h2 {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  /* Label Style */
+  .ticket-booking-container label {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  /* Input and Select Fields */
+  .ticket-booking-container input,
+  .ticket-booking-container select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  /* Focus effect for inputs and selects */
+  .ticket-booking-container input:focus,
+  .ticket-booking-container select:focus {
+    border-color: #4f46e5;
+    box-shadow: 0 0 8px rgba(79, 70, 229, 0.2);
+    outline: none;
+  }
+  
+  /* Flexbox for input fields (first name, last name) */
+  .flex-input-group {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .flex-input-group input {
+    flex: 1;
+  }
+  
+  /* Button Style */
+  .ticket-booking-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4f46e5;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  /* Hover effect for button */
+  .ticket-booking-container button:hover {
+    background-color: #6c5ce7;
+    transform: translateY(-2px);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .ticket-booking-container {
+      padding: 20px;
+      max-width: 400px;
+    }
+  
+    .ticket-booking-container h2 {
+      font-size: 1.6rem;
+    }
+  
+    .flex-input-group {
+      flex-direction: column;
+    }
+  
+    .flex-input-group input {
+      margin-bottom: 10px;
+    }
+  
+    .ticket-booking-container button {
+      font-size: 1rem;
+    }
+  }
+  

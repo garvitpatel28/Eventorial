@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import './PaymentPage.css'; // Importing the CSS file
 
 function PaymentPage() {
   const location = useLocation();
@@ -39,11 +40,10 @@ function PaymentPage() {
       navigate('/events', { state: { bookingSuccess: true } });
     }, 1000); // slight delay to show the alert
   };
-  
 
   return (
-    <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
-      <h2 className="text-2xl font-bold mb-6 text-center">Complete Your Payment</h2>
+    <div className="payment-container">
+      <h2>Complete Your Payment</h2>
 
       {bookingData ? (
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -73,7 +73,7 @@ function PaymentPage() {
             />
           </div>
 
-          <div className="flex space-x-4">
+          <div className="flex-input-group">
             <div className="w-1/2">
               <label className="block text-sm font-medium mb-1">Expiry Month</label>
               <input

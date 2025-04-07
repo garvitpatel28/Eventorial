@@ -11,6 +11,7 @@ import AdminDashboard from './components/AdminDashboard';
 import TicketBooking from './components/TicketBooking';
 import PaymentPage from './components/PaymentPage';
 import CreateEvent from './components/CreateEvent';
+import ViewTicketBooking from './components/ViewBookings';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
 
         <Route path="/book-ticket/:eventId" element={<TicketBooking />} />
         <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/my-bookings" element={<ViewTicketBooking />} />
       </Routes>
     </Router>
   );

@@ -8,6 +8,7 @@ const Event = require('./models/Event');
 const Ticket = require('./models/Ticket');
 const userRoutes = require('./routes/user');
 const eventRoutes = require('./routes/event');
+const ticketRoutes = require('./routes/ticket');
 const bookingRoutes = require('./routes/Bookings');
 const authRoutes = require('./routes/auth');  // Added for auth routes
 
@@ -116,11 +117,22 @@ app.get('/events', async (req, res) => {
   }
 });
 
+app.get('/api/tickets/user/:userId', async (req, res) => {
+  try {
+    const tickets = await Ticket.find({ userId: req.params.userId })
+      .populate('eventId', 'title date venue'); // Use 'title' instead of 'name'
+    res.json(tickets);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Routes for authentication, users, events, bookings
 app.use('/api/auth', authRoutes);  // Use authRoutes here
 app.use('/api/user', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/bookings', bookingRoutes);
+app.use('/api/tickets', ticketRoutes);
 
 // Ticket booking endpoint
 app.post('/book-ticket/', async (req, res) => {
