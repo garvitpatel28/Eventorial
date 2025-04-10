@@ -1,159 +1,198 @@
 .signup-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 100%;
-  width:100%;
-  background-color: #df1414;
-  }
-  
+  padding: 3rem 1rem;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.h2-container {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #ffffff;
+}
+
+.h2-container h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.signup-box {
+  background: #ffffff;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 550px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.signup-box:hover {
+  transform: translateY(-4px);
+}
+
+.signup-box h2 {
+  font-size: 2rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.user-type-selector {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.user-type-selector label {
+  font-size: 1rem;
+  color: #444;
+  font-weight: 500;
+}
+
+.social-signup {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.social-button-google,
+.social-button-facebook {
+  flex: 1;
+  min-width: 200px;
+  border-radius: 25px;
+  padding: 12px 18px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.social-button-google {
+  background-color: #fff;
+  color: #db4437;
+  border: 1.5px solid #db4437;
+}
+
+.social-button-google:hover {
+  background-color: #db4437;
+  color: #fff;
+}
+
+.social-button-facebook {
+  background-color: #fff;
+  color: #1877f2;
+  border: 1.5px solid #1877f2;
+}
+
+.social-button-facebook:hover {
+  background-color: #1877f2;
+  color: #fff;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 2rem 0 1.5rem;
+  color: #999;
+  font-size: 0.95rem;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.divider span {
+  padding: 0 1rem;
+  font-weight: 500;
+}
+
+.form-group {
+  margin-bottom: 1.4rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  background-color: #f9f9f9;
+}
+
+.form-group input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  background-color: #fff;
+  outline: none;
+}
+
+.signup-button {
+  width: 100%;
+  padding: 0.95rem;
+  background-color: #6366f1;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.signup-button:hover {
+  background-color: #4f46e5;
+  transform: translateY(-2px);
+}
+
+.login-link {
+  margin-top: 1rem;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.login-link a {
+  color: #6366f1;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
   .signup-box {
-    background: white;
     padding: 2rem;
-    border-radius: 20px 0px 20px 0px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    height: 90%;
-    width: 170%;
-    margin: 20px;
-    max-width: 900px;
-    text-align: center;
-  }
-  
-  .signup-container h2 {
-    margin-bottom: 1rem;
-    font-size: 2.8rem;
-    color: #faf9f9;
-    padding: 20px;
-  }
-  .signup-box h2 {
-    margin-bottom: 1rem;
-    font-size: 2.8rem;
-    color: #060606;
-    text-align: center;
-    
-  }  
-   
-  .social-signup {
-    display: flex;
-    flex-direction: row; 
-    gap: 6rem; 
-    margin-bottom: 1.5rem;
-   
-  }
-  
-  .social-signup {
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5rem; 
-  
-  }
-  
-  .social-button-google {
-    width:300px;
-    border-radius: 20px;
-    padding: 5px;
-    font-size: 1.2rem;
-    background-color:white;
-    color: rgb(9, 8, 8);
-  }
-  
-  .social-button-facebook {
-    width:300px;
-    border-radius: 20px;
-    padding: 5px;
-    font-size: 1.2rem;
-    background-color: white;
-    color:  rgb(9, 8, 8);
-  }
-  
-  .divider {
-    display: flex;
-    align-items: center;
-    margin: 1.5rem 0;
-  }
-  
-  .divider span {
-    padding: 0 1rem;
-    background: white;
-    color: #666;
-  }
-  
-  .divider::before,
-  .divider::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .form-group {
-    margin-bottom: 1rem;
-    text-align: left;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #333;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1rem;
-  }
-  
-  .signup-button {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: #6366f1;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-top: 1rem;
-  }
-  
-  .signup-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .login-link {
-    margin-top: 1rem;
-    color: #666;
-  }
-  
-  .login-link a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .login-link a:hover {
-    text-decoration: underline;
   }
 
-  .user-type-selector {
-    display: flex;
-    justify-content: center;
-    gap: 50px;
-    margin-bottom: 0.5rem;
+  .h2-container h2,
+  .signup-box h2 {
+    font-size: 2rem;
   }
-  
-  .user-type-selector label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.2rem;
-    color: #333;
+
+  .social-button-google,
+  .social-button-facebook {
+    min-width: 100%;
   }
-  
-  .user-type-selector input[type="radio"] {
-    margin: 0;
-  }
+}

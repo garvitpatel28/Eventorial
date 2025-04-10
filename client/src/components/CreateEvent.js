@@ -61,7 +61,7 @@ function CreateEvent() {
 
   return (
     <div className="create-event">
-      <h2>Create Event</h2>
+      <h2>Create a New Event</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Title</label>
