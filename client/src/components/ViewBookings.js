@@ -108,12 +108,7 @@ function ViewTicketBooking() {
               </div>
               
               <div className="booking-actions">
-                <button 
-                  className="cancel-btn"
-                  onClick={() => handleCancelBooking(booking._id)}
-                >
-                  Cancel Booking
-                </button>
+                
                 <button 
                   className="view-receipt-btn"
                   onClick={() => navigate(`/booking-receipt/${booking._id}`)}
