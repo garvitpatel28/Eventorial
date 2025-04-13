@@ -1,29 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Navbar.css';
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    // Check if the user is logged in by verifying the token in localStorage or cookies
-    const token = localStorage.getItem('token'); // Or check cookies if you're storing the token there
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, [location]); // re-check token on route change
 
   const handleLogout = () => {
-    // Clear local storage items related to the user session
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
     console.log("Logged out successfully");
-  
-    // Redirect user to login or home page
     navigate('/login');
   };
-  
+
+  // Pages where we want only Login and Signup buttons
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark custom-navbar">
@@ -42,30 +39,39 @@ function Navbar() {
 
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link className="nav-link" to="/events">Events</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/organizer-dashboard">Organizer</Link>
-            </li>
-            <div className="auth-buttons">
-              {!isLoggedIn ? (
-                <>
-                  <li className="nav-item">
-                    <Link className="nav-link btn-login" to="/login">Login</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link btn-signup" to="/signup">Sign Up</Link>
-                  </li>
-                </>
-              ) : (
-                <>
+            {isAuthPage ? (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link btn-login" to="/login">Login</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link btn-signup" to="/signup">Sign Up</Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/events">Events</Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/organizer-dashboard">Organizer</Link>
+                </li>
+                {isLoggedIn ? (
                   <li className="nav-item">
                     <button className="nav-link btn-logout" onClick={handleLogout}>Logout</button>
                   </li>
-                </>
-              )}
-            </div>
+                ) : (
+                  <>
+                    <li className="nav-item">
+                      <Link className="nav-link btn-login" to="/login">Login</Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link className="nav-link btn-signup" to="/signup">Sign Up</Link>
+                    </li>
+                  </>
+                )}
+              </>
+            )}
           </ul>
         </div>
       </div>
