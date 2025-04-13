@@ -5,30 +5,25 @@ function OrganizerDashboard() {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const [bookings, setBookings] = useState({});
-  const organizerId = localStorage.getItem('userId'); // Ensure this is correctly set
+  const organizerId = localStorage.getItem('userId'); 
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        // Log the organizerId to ensure it's correct
+     
         console.log('Organizer ID:', organizerId);
-
-        // Fetch events for this organizer
         const res = await fetch(`http://localhost:5000/api/events/by-organizer/${organizerId}`);
         const data = await res.json();
 
-        // Log the response to verify that data is returned
         console.log('Fetched events:', data);
 
-        // Ensure that the data is an array before setting state
         if (Array.isArray(data)) {
           setEvents(data);
         } else {
           console.error('Expected an array of events, but got:', data);
-          setEvents([]); // Safeguard in case of unexpected data structure
+          setEvents([]); 
         }
 
-        // Fetch bookings for each event
         const allBookings = {};
         for (const event of data) {
           const ticketRes = await fetch(`http://localhost:5000/api/tickets/by-event/${event._id}`);
@@ -47,7 +42,6 @@ function OrganizerDashboard() {
     }
   }, [organizerId]);
 
-  // Check if events is an array before rendering
   if (!Array.isArray(events)) {
     return <p>Loading events...</p>;
   }

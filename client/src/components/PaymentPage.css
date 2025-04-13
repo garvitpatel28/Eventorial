@@ -1,4 +1,4 @@
-/* Container for the payment page form */
+
 .payment-container {
     max-width: 600px;
     margin: 50px auto;
@@ -9,7 +9,7 @@
     border: 1px solid #e5e7eb;
   }
   
-  /* Heading Style */
+ 
   .payment-container h2 {
     font-size: 2rem;
     font-weight: bold;
@@ -18,7 +18,7 @@
     margin-bottom: 30px;
   }
   
-  /* Label Style */
+
   .payment-container label {
     font-size: 1rem;
     font-weight: 600;
@@ -27,7 +27,7 @@
     margin-bottom: 8px;
   }
   
-  /* Input Fields Style */
+
   .payment-container input,
   .payment-container select {
     width: 100%;
@@ -39,7 +39,7 @@
     transition: border 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
   }
   
-  /* Focus effect for inputs and selects */
+  
   .payment-container input:focus,
   .payment-container select:focus {
     border-color: #4f46e5;
@@ -47,7 +47,7 @@
     outline: none;
   }
   
-  /* Flexbox for input fields (expiry month, year) */
+
   .flex-input-group {
     display: flex;
     gap: 20px;
@@ -57,7 +57,7 @@
     flex: 1;
   }
   
-  /* Button Style */
+
   .payment-container button {
     width: 100%;
     padding: 12px;
@@ -71,13 +71,12 @@
     transition: background-color 0.3s ease, transform 0.3s ease;
   }
   
-  /* Hover effect for button */
+ 
   .payment-container button:hover {
     background-color: #6c5ce7;
     transform: translateY(-2px);
   }
-  
-  /* Responsive Design */
+ 
   @media (max-width: 768px) {
     .payment-container {
       padding: 20px;
@@ -100,4 +99,69 @@
       font-size: 1rem;
     }
   }
-  
+  .checkout-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+input.error {
+  border-color: #ff4444;
+}
+
+.error-message {
+  color: #ff4444;
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+}
+
+.submit-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background-color: #45a049;
+}
+
+.form-error {
+  color: #ff4444;
+  text-align: center;
+  margin-top: 10px;
+}

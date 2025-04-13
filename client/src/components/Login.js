@@ -14,15 +14,14 @@ function Login() {
   
       alert(response.data.message);
   
-      // Save token, userType, and userId
+     
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userType', response.data.userType);
-      localStorage.setItem('userId', response.data.userId); // Ensure userId is stored
+      localStorage.setItem('userId', response.data.userId); 
   
-      console.log("Saved Token:", response.data.token); // Debugging
-      console.log("Saved UserId:", response.data.userId); // Debugging
+      console.log("Saved Token:", response.data.token); 
+      console.log("Saved UserId:", response.data.userId); 
   
-      // Redirect based on userType
       if (response.data.userType === 'admin') {
         navigate('/admin-dashboard');
       } else if (response.data.userType === 'user') {

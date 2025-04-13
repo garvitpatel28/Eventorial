@@ -1,4 +1,3 @@
-// ViewBookings.js (Corrected)
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './ViewBooking.css';
@@ -7,6 +6,8 @@ function ViewTicketBooking() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [showReceipt, setShowReceipt] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,14 +22,13 @@ function ViewTicketBooking() {
         }
 
         const response = await fetch(
-          `http://localhost:5000/api/tickets/user/${userId}`, // Correct endpoint
+          `http://localhost:5000/api/tickets/user/${userId}`,
           {
             headers: {
-              'Authorization': `Bearer ${token}` // Add auth header
+              'Authorization': `Bearer ${token}`
             }
           }
         );
-       console.log(response)
       
         const data = await response.json();
         setBookings(data);
@@ -43,28 +43,14 @@ function ViewTicketBooking() {
     fetchBookings();
   }, [navigate]);
 
-  const handleCancelBooking = async (bookingId) => {
-    if (window.confirm('Are you sure you want to cancel this booking?')) {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(
-          `http://localhost:5000/tickets/${bookingId}`,
-          {
-            method: 'DELETE',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            }
-          }
-        );
+  const handleViewReceipt = (booking) => {
+    setSelectedBooking(booking);
+    setShowReceipt(true);
+  };
 
-        if (!response.ok) throw new Error('Failed to cancel booking');
-        
-        setBookings(bookings.filter(booking => booking._id !== bookingId));
-      } catch (err) {
-        alert(err.message);
-      }
-    }
+  const closeReceipt = () => {
+    setShowReceipt(false);
+    setSelectedBooking(null);
   };
 
   if (loading) return <div className="loading">Loading your bookings...</div>;
@@ -108,16 +94,51 @@ function ViewTicketBooking() {
               </div>
               
               <div className="booking-actions">
-                
                 <button 
                   className="view-receipt-btn"
-                  onClick={() => navigate(`/booking-receipt/${booking._id}`)}
+                  onClick={() => handleViewReceipt(booking)}
                 >
                   View Receipt
                 </button>
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Receipt Popup Modal */}
+      {showReceipt && selectedBooking && (
+        <div className="receipt-modal">
+          <div className="receipt-modal-content">
+            <div className="receipt-header">
+              <h3>Booking Receipt</h3>
+              <button className="close-btn" onClick={closeReceipt}>&times;</button>
+            </div>
+            
+            <div className="receipt-body">
+              <div className="receipt-section">
+                <h4>Event Details</h4>
+                <p><strong>Event Name:</strong> {selectedBooking.eventId?.name}</p>
+                <p><strong>Date:</strong> {new Date(selectedBooking.eventId?.date).toLocaleDateString()}</p>
+                <p><strong>Venue:</strong> {selectedBooking.eventId?.venue}</p>
+                <p><strong>Time:</strong> {selectedBooking.eventId?.time}</p>
+              </div>
+              
+              <div className="receipt-section">
+                <h4>Booking Details</h4>
+                <p><strong>Booking ID:</strong> {selectedBooking._id}</p>
+                <p><strong>Number of Tickets:</strong> {selectedBooking.numberOfTickets}</p>
+                <p><strong>Seating Preference:</strong> {selectedBooking.seatingPreference}</p>
+                <p><strong>Booking Date:</strong> {new Date(selectedBooking.createdAt).toLocaleDateString()}</p>
+              </div>
+              
+            </div>
+            
+            <div className="receipt-footer">
+              
+              <button className="close-btn" onClick={closeReceipt}>Close</button>
+            </div>
+          </div>
         </div>
       )}
     </div>

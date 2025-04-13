@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const auth = require('../middleware/auth'); // Importing the auth middleware
+const auth = require('../middleware/auth'); 
 
-// Route to get all users (secured with auth middleware)
-// Example: server/routes/user.js
+
 router.get("/getAllUsers", async (req, res) => {
   try {
-    const users = await User.find().select("-password"); // Avoid returning passwords
+    const users = await User.find().select("-password"); 
     res.json(users);
   } catch (err) {
     res.status(500).json({ message: "Failed to fetch users", error: err.message });
@@ -15,8 +14,6 @@ router.get("/getAllUsers", async (req, res) => {
 });
 
 
-// Route to delete a user by ID (secured with auth middleware)
-// In routes/user.js or a relevant file
 router.delete('/:id', async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.params.id);

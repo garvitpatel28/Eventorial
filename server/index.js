@@ -10,26 +10,23 @@ const userRoutes = require('./routes/user');
 const eventRoutes = require('./routes/event');
 const ticketRoutes = require('./routes/ticket');
 const bookingRoutes = require('./routes/Bookings');
-const authRoutes = require('./routes/auth');  // Added for auth routes
+const authRoutes = require('./routes/auth'); 
 
 dotenv.config();
 
 const app = express();
 
-// Middleware
 app.use(express.json());
 app.use(cors({
   origin: 'http://localhost:3000',
-  credentials: true, // Ensure the frontend can send cookies with requests
+  credentials: true, 
 }));
 
-// MongoDB connection
 mongoose
   .connect(process.env.MONGO_URI)
   .then(async () => {
     console.log('MongoDB connected');
 
-    // Create admin user if it doesn't exist
     const adminEmail = 'admin@eventorial.com';
     let admin = await User.findOne({ email: adminEmail });
 
@@ -43,12 +40,10 @@ mongoose
       console.log('Admin user created');
     }
 
-    // Add dummy events if no events exist
     await createDummyEvents(admin._id);
   })
   .catch(err => console.log(err));
 
-// Dummy data creation function for events
 async function createDummyEvents(adminId) {
   try {
     const existingEvents = await Event.countDocuments();
@@ -208,14 +203,12 @@ app.get('/api/tickets/user/:userId', async (req, res) => {
   }
 });
 
-// Routes for authentication, users, events, bookings
-app.use('/api/auth', authRoutes);  // Use authRoutes here
+app.use('/api/auth', authRoutes); 
 app.use('/api/user', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/tickets', ticketRoutes);
 
-// Ticket booking endpoint
 app.post('/book-ticket/', async (req, res) => {
   try {
     const ticketData = req.body;
@@ -234,6 +227,6 @@ app.post('/book-ticket/', async (req, res) => {
   }
 });
 
-// Start server
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

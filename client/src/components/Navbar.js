@@ -10,7 +10,7 @@ function Navbar() {
   useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
-  }, [location]); // re-check token on route change
+  }, [location]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -19,7 +19,6 @@ function Navbar() {
     navigate('/login');
   };
 
-  // Pages where we want only Login and Signup buttons
   const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
 
   return (

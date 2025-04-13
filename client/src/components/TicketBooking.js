@@ -5,7 +5,7 @@ import './TicketBooking.css';
 function TicketBooking() {
   const { eventId } = useParams();
   const navigate = useNavigate();
-  const [userId, setUserId] = useState(''); // State for user ID
+  const [userId, setUserId] = useState(''); 
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -16,12 +16,12 @@ function TicketBooking() {
     numberOfTickets: 1,
     seatingPreference: 'Standard',
     eventId: '',
-    userId: '' // Will be populated from auth
+    userId: '' 
   });
 
   useEffect(() => {
-    // Get user ID from authentication system (e.g., localStorage, context, etc.)
-    const storedUserId = localStorage.getItem('userId'); // Replace with your auth method
+    
+    const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
       setUserId(storedUserId);
       setFormData(prev => ({ ...prev, userId: storedUserId }));
@@ -30,7 +30,7 @@ function TicketBooking() {
     if (eventId) {
       setFormData(prev => ({ ...prev, eventId }));
     }
-  }, [eventId]); // Runs when component mounts and eventId changes
+  }, [eventId]); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,7 +52,7 @@ function TicketBooking() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formData,
-          userId // Ensure user ID is included
+          userId
         }),
       });
 

@@ -26,7 +26,6 @@ function SignUp() {
       });
       alert(response.data.message); 
 
-      // Redirect based on user type
       if (userType === 'user') {
         navigate('/events'); 
       } else if (userType === 'organizer') {

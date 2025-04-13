@@ -23,20 +23,18 @@ function CreateEvent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Convert date to YYYY-MM-DD format
     const formattedDate = new Date(formData.date).toISOString().split('T')[0];
 
-    // Create a new object with the formatted date
     const payload = {
       ...formData,
       date: formattedDate,
     };
 
-    console.log("Form Data:", payload); // Debugging
+    console.log("Form Data:", payload); 
 
     try {
       const token = localStorage.getItem('token');
-      console.log("Sending Token:", token); // Debugging
+      console.log("Sending Token:", token); 
 
       if (!token) {
         alert("You are not authenticated. Please log in again.");

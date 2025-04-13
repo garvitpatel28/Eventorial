@@ -23,7 +23,7 @@ const EventSchema = new mongoose.Schema({
     venue: {
         type: String,
         required: [true, 'Please add a venue'],
-        maxlength: [255, 'Venue cannot exceed 255 characters'] // Fixed property name
+        maxlength: [255, 'Venue cannot exceed 255 characters']
     },
     ticketAvailability: {
         type: Number,
@@ -44,7 +44,7 @@ const EventSchema = new mongoose.Schema({
             values: ['Music', 'Sports', 'Conference', 'Workshop', 'Festival', 'Art', 'Other'],
             message: 'Please select a valid category'
         },
-        index: true // Add index for faster category-based queries
+        index: WebTransportDatagramDuplexStream
     }
 }, {
     timestamps: true,
@@ -52,7 +52,7 @@ const EventSchema = new mongoose.Schema({
     toObject: { virtuals: true }
 });
 
-// Reverse populate with virtual
+
 EventSchema.virtual('bookings', {
     ref: 'Booking',
     localField: '_id',
@@ -60,7 +60,7 @@ EventSchema.virtual('bookings', {
     justOne: false
 });
 
-// Cascade delete bookings when an event is deleted
+
 EventSchema.pre('deleteOne', { document: true }, async function (next) {
     await mongoose.model('Booking').deleteMany({ event: this._id });
     next();

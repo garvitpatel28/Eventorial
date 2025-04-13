@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import './PaymentPage.css'; // Importing the CSS file
+import './PaymentPage.css';
 
 function PaymentPage() {
   const location = useLocation();
@@ -34,11 +34,9 @@ function PaymentPage() {
     console.log("Payment Data Submitted:", formData);
     alert('Payment submitted successfully! Your event has been booked.');
   
-    // Optionally save booking info to backend here
-  
     setTimeout(() => {
       navigate('/events', { state: { bookingSuccess: true } });
-    }, 1000); // slight delay to show the alert
+    }, 1000); 
   };
 
   return (
