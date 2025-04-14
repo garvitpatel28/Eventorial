@@ -8,6 +8,20 @@ function Navbar() {
   const location = useLocation();
 
   useEffect(() => {
+    const checkToken = () => {
+      const token = localStorage.getItem('token');
+      setIsLoggedIn(!!token);
+    };
+
+    checkToken(); // Initial check
+    window.addEventListener('storage', checkToken);
+
+    return () => {
+      window.removeEventListener('storage', checkToken);
+    };
+  }, []);
+
+  useEffect(() => {
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
   }, [location]);
@@ -15,6 +29,7 @@ function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userType');
+    localStorage.removeItem('userId');
     console.log("Logged out successfully");
     navigate('/login');
   };

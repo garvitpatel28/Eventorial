@@ -10,32 +10,39 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const response = await axios.post("http://localhost:5000/api/auth/login", {
+        email,
+        password
+      });
   
-      alert(response.data.message);
+      const { token, userType, _id, name, email: userEmail } = response.data;
   
-     
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userType', response.data.userType);
-      localStorage.setItem('userId', response.data.userId); 
+      // Store the full user object
+      const user = {
+        _id,
+        name,
+        email: userEmail,
+        userType: userType.toLowerCase(),
+      };
   
-      console.log("Saved Token:", response.data.token); 
-      console.log("Saved UserId:", response.data.userId); 
+      // Store token and userId in localStorage
+      localStorage.setItem("token", token);
+      localStorage.setItem("userId", _id); // Store the userId as well
+      localStorage.setItem("user", JSON.stringify(user)); // ✅ correct localStorage usage
   
-      if (response.data.userType === 'admin') {
-        navigate('/admin-dashboard');
-      } else if (response.data.userType === 'user') {
-        navigate('/events');
-      } else if (response.data.userType === 'organizer') {
-        navigate('/organizer-dashboard');
+      if (user.userType === "admin") {
+        navigate("/admin-dashboard");
+      } else if (user.userType === "organizer") {
+        navigate("/organizer-dashboard");
+      } else {
+        navigate("/events");
       }
-    } catch (err) {
-      console.error("Login Error:", err.response?.data?.message || err.message);
-      alert(err.response?.data?.message || 'Login failed.');
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Invalid credentials");
     }
   };
   
-
   return (
     <div className="login-container">
       <div className="h2-container">
@@ -52,15 +59,31 @@ function Login() {
         <form>
           <div className="form-group">
             <label htmlFor="email">Email Address</label>
-            <input type="email" id="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="form-group">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" placeholder="Enter password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
-          <button type="button" className="login-button" onClick={handleLogin}>Login</button>
+          <button type="button" className="login-button" onClick={handleLogin}>
+            Login
+          </button>
         </form>
-        <p className="signup-link">Don't have an account? <a href="/signup">Sign up</a></p>
+        <p className="signup-link">
+          Don't have an account? <a href="/signup">Sign up</a>
+        </p>
       </div>
     </div>
   );

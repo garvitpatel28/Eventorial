@@ -29,9 +29,15 @@ function ViewTicketBooking() {
             }
           }
         );
-      
+        
         const data = await response.json();
-        setBookings(data);
+
+        // Ensure data is an array before setting it
+        if (Array.isArray(data)) {
+          setBookings(data);
+        } else {
+          throw new Error('Unexpected response format');
+        }
       } catch (err) {
         console.error('Fetch error:', err);
         setError(err.message);
@@ -135,8 +141,7 @@ function ViewTicketBooking() {
             </div>
             
             <div className="receipt-footer">
-              
-              <button className="close-btn" onClick={closeReceipt}>Close</button>
+               <button className="close-btn" onClick={closeReceipt}>Close</button>
             </div>
           </div>
         </div>

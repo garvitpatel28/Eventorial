@@ -4,7 +4,7 @@ const router = express.Router();
 const Booking = require('../models/Booking');
 const Event = require('../models/Event'); 
 
-
+// Authentication middleware
 const authenticateUser = (req, res, next) => {
   const token = req.cookies.token || req.headers.authorization?.split(' ')[1]; 
   if (!token) {
@@ -20,39 +20,21 @@ const authenticateUser = (req, res, next) => {
   }
 };
 
-
-router.get('/user/:userId', authenticateUser, async (req, res) => {
-    const { userId } = req.params;
-  
-    if (req.user._id.toString() !== userId) {
-      return res.status(403).json({ message: 'Access denied' });
-    }
-  
-    try {
-      const bookings = await Booking.find({ user: userId }).populate('event', 'title date venue');
-      console.log('Bookings:', bookings);
-      res.json(bookings);
-    } catch (error) {
-      console.error('Error fetching bookings:', error.message);
-      res.status(500).json({ message: 'Error fetching bookings', error: error.message });
-    }
-});
-
+// Booking route
 router.post('/book-event', authenticateUser, async (req, res) => {
-  const { eventId } = req.body;
-  const user = req.user;
+  const { eventId } = req.body;  // This is coming from the frontend
+  const user = req.user; // This is decoded from the token
 
   try {
-    
     const event = await Event.findById(eventId);
     if (!event) {
       return res.status(404).json({ message: 'Event not found' });
     }
 
+    // Create the booking with the correct field names
     const newBooking = new Booking({
-      eventId,
-      userId: user._id,
-      userName: user.name,
+      event: eventId, // Use 'event' instead of 'eventId' as per the schema
+      user: user._id, // Use 'user' instead of 'userId'
       eventTitle: event.title,
       eventDate: event.date,
       venue: event.venue,
@@ -62,8 +44,10 @@ router.post('/book-event', authenticateUser, async (req, res) => {
     res.status(201).json({ message: 'Booking successful', booking: newBooking });
   } catch (error) {
     console.error('Booking failed:', error);
-    res.status(500).json({ message: 'Server error while booking ticket' });
+    res.status(500).json({ message: 'Server error while booking ticket', error: error.message });
   }
 });
+
+
 
 module.exports = router;

@@ -5,7 +5,7 @@ import './TicketBooking.css';
 function TicketBooking() {
   const { eventId } = useParams();
   const navigate = useNavigate();
-  const [userId, setUserId] = useState(''); 
+  const [userId, setUserId] = useState('');
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -16,21 +16,25 @@ function TicketBooking() {
     numberOfTickets: 1,
     seatingPreference: 'Standard',
     eventId: '',
-    userId: '' 
+    userId: '' // Ensure userId is part of the formData
   });
 
   useEffect(() => {
-    
+    // Get the user from localStorage
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
       setUserId(storedUserId);
       setFormData(prev => ({ ...prev, userId: storedUserId }));
+    } else {
+      // Redirect to login if no userId found
+      alert('Please log in to book tickets');
+      navigate('/login');
     }
-    
+
     if (eventId) {
       setFormData(prev => ({ ...prev, eventId }));
     }
-  }, [eventId]); 
+  }, [eventId, navigate]); // Re-run effect if eventId or navigate changes
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,33 +43,45 @@ function TicketBooking() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+  
     if (!userId) {
       alert('Please log in to book tickets');
       navigate('/login');
       return;
     }
-
+  
     try {
-      const response = await fetch('http://localhost:5000/book-ticket/', {
+      const response = await fetch('http://localhost:5000/book-event', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...formData,
-          userId
+          eventId: formData.eventId,  // Make sure you're sending eventId
+          userId,                     // Send the userId here
+          eventTitle: formData.eventTitle, // If you have event title on the frontend
+          eventDate: formData.eventDate,   // If you have event date on the frontend
+          venue: formData.venue,           // Similarly, other details
+          seatingPreference: formData.seatingPreference,
+          numberOfTickets: formData.numberOfTickets,
+          address: formData.address,
+          email: formData.email,
+          mobileNo: formData.mobileNo
         }),
       });
-
+  
       if (response.ok) {
         navigate('/payment', { state: formData });
       } else {
         const errorData = await response.json();
+        console.error('Booking failed:', errorData);
         alert(`Booking failed: ${errorData.message || 'Unknown error'}`);
       }
     } catch (error) {
+      console.error('Error occurred during booking:', error);
       alert('Something went wrong. Please try again later.');
     }
   };
+  
+  
 
   return (
     <div className="ticket-booking-container">
