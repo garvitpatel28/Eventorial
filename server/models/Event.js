@@ -44,7 +44,7 @@ const EventSchema = new mongoose.Schema({
             values: ['Music', 'Sports', 'Conference', 'Workshop', 'Festival', 'Art', 'Other'],
             message: 'Please select a valid category'
         },
-        index: WebTransportDatagramDuplexStream
+        index: true
     }
 }, {
     timestamps: true,
