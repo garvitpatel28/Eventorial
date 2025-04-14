@@ -8,9 +8,10 @@ const Event = require('./models/Event');
 const Ticket = require('./models/Ticket');
 const userRoutes = require('./routes/user');
 const eventRoutes = require('./routes/event');
-const ticketRoutes = require('./routes/ticket');
+const ticketRoutes = require('./routes/tickets');
 const bookingRoutes = require('./routes/Bookings');
 const authRoutes = require('./routes/auth'); 
+const cookieParser = require('cookie-parser');
 
 dotenv.config();
 
@@ -208,6 +209,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/events', eventRoutes);
 app.use('/api/bookings', bookingRoutes);
 app.use('/api/tickets', ticketRoutes);
+app.use(cookieParser());
 
 app.post('/book-ticket/', async (req, res) => {
   try {

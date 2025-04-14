@@ -44,29 +44,34 @@ function TicketBooking() {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    if (!userId) {
+    const token = localStorage.getItem('token');
+    if (!token) {
       alert('Please log in to book tickets');
       navigate('/login');
       return;
     }
   
     try {
-      const response = await fetch('http://localhost:5000/book-event', {
+    
+      const response = await fetch('http://localhost:5000/book-ticket/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
         body: JSON.stringify({
-          eventId: formData.eventId,  // Make sure you're sending eventId
-          userId,                     // Send the userId here
-          eventTitle: formData.eventTitle, // If you have event title on the frontend
-          eventDate: formData.eventDate,   // If you have event date on the frontend
-          venue: formData.venue,           // Similarly, other details
-          seatingPreference: formData.seatingPreference,
-          numberOfTickets: formData.numberOfTickets,
+          userId: formData.userId,
+          eventId: formData.eventId,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
           address: formData.address,
           email: formData.email,
-          mobileNo: formData.mobileNo
+          mobileNo: formData.mobileNo,
+          numberOfTickets: formData.numberOfTickets,
+          seatingPreference: formData.seatingPreference,
         }),
       });
+      
   
       if (response.ok) {
         navigate('/payment', { state: formData });
@@ -80,8 +85,7 @@ function TicketBooking() {
       alert('Something went wrong. Please try again later.');
     }
   };
-  
-  
+    
 
   return (
     <div className="ticket-booking-container">

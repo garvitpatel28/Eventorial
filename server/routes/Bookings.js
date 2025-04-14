@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const Booking = require('../models/Booking');
 const Event = require('../models/Event'); 
+const Ticket = require('../models/Ticket'); 
+
 
 // Authentication middleware
 const authenticateUser = (req, res, next) => {
@@ -20,31 +22,23 @@ const authenticateUser = (req, res, next) => {
   }
 };
 
-// Booking route
-router.post('/book-event', authenticateUser, async (req, res) => {
-  const { eventId } = req.body;  // This is coming from the frontend
-  const user = req.user; // This is decoded from the token
+const mongoose = require('mongoose'); // make sure mongoose is required
 
+
+// Admin route to view bookings
+router.get('/admin/bookings', authenticateUser, async (req, res) => {
   try {
-    const event = await Event.findById(eventId);
-    if (!event) {
-      return res.status(404).json({ message: 'Event not found' });
+    // Ensure only admins can access this
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Access denied' });
     }
 
-    // Create the booking with the correct field names
-    const newBooking = new Booking({
-      event: eventId, // Use 'event' instead of 'eventId' as per the schema
-      user: user._id, // Use 'user' instead of 'userId'
-      eventTitle: event.title,
-      eventDate: event.date,
-      venue: event.venue,
-    });
-
-    await newBooking.save();
-    res.status(201).json({ message: 'Booking successful', booking: newBooking });
-  } catch (error) {
-    console.error('Booking failed:', error);
-    res.status(500).json({ message: 'Server error while booking ticket', error: error.message });
+    // Fetch bookings from the Ticket model
+    const bookings = await Ticket.find().populate('userId eventId');
+    res.status(200).json(bookings);
+  } catch (err) {
+    console.error('Error fetching bookings:', err.stack);
+    res.status(500).json({ message: 'Failed to fetch bookings', error: err.message });
   }
 });
 

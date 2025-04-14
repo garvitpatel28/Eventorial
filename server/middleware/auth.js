@@ -1,13 +1,11 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-const auth = async (req, res, next) => {
+const authenticateUser = async (req, res, next) => {
   try {
-    
     let token = req.header('Authorization')?.replace('Bearer ', '');
 
-   
-    if (!token) {
+    if (!token && req.cookies?.token) {
       token = req.cookies.token;
     }
 
@@ -16,20 +14,16 @@ const auth = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    
- 
-    const user = await User.findOne({ _id: decoded.id, 'tokens.token': token });
 
-    
+    const user = await User.findById(decoded.id); // 👈 just find by ID
+
     if (!user) {
-      return res.status(401).json({ message: 'Invalid token or user not found' });
+      return res.status(401).json({ message: 'User not found' });
     }
 
-  
     req.user = user;
     req.token = token;
 
- 
     next();
   } catch (error) {
     console.error('Auth Middleware Error:', error);
@@ -37,23 +31,4 @@ const auth = async (req, res, next) => {
   }
 };
 
-
-const authenticateUser = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1]; 
-
-  if (!token) {
-    return res.status(401).json({ message: 'No token, authorization denied' });
-  }
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; 
-    next(); 
-  } catch (err) {
-    return res.status(401).json({ message: 'Invalid or expired token' });
-  }
-};
-
 module.exports = authenticateUser;
-
-module.exports = auth;

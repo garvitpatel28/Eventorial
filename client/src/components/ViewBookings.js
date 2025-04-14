@@ -76,7 +76,8 @@ function ViewTicketBooking() {
           {bookings.map(booking => (
             <div key={booking._id} className="booking-card">
               <div className="booking-header">
-                <h3>{booking.eventId?.name || 'Event Name'}</h3>
+              <h3>{booking.eventId?.title || 'Event Name'}</h3>
+
                 <span className="booking-status">Confirmed</span>
               </div>
               
@@ -124,7 +125,7 @@ function ViewTicketBooking() {
             <div className="receipt-body">
               <div className="receipt-section">
                 <h4>Event Details</h4>
-                <p><strong>Event Name:</strong> {selectedBooking.eventId?.name}</p>
+                <p><strong>Event Name:</strong> {selectedBooking.eventId?.title}</p>
                 <p><strong>Date:</strong> {new Date(selectedBooking.eventId?.date).toLocaleDateString()}</p>
                 <p><strong>Venue:</strong> {selectedBooking.eventId?.venue}</p>
                 <p><strong>Time:</strong> {selectedBooking.eventId?.time}</p>

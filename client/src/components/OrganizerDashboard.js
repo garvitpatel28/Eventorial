@@ -6,27 +6,38 @@ function OrganizerDashboard() {
   const [events, setEvents] = useState([]);
   const [bookings, setBookings] = useState({});
   const organizerId = localStorage.getItem('userId'); 
+  const token = localStorage.getItem('token'); // ⬅️ Get the JWT token from localStorage
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-     
         console.log('Organizer ID:', organizerId);
-        const res = await fetch(`http://localhost:5000/api/events/by-organizer/${organizerId}`);
-        const data = await res.json();
 
+        const res = await fetch(`http://localhost:5000/api/events/by-organizer/${organizerId}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        const data = await res.json();
         console.log('Fetched events:', data);
 
         if (Array.isArray(data)) {
           setEvents(data);
         } else {
           console.error('Expected an array of events, but got:', data);
-          setEvents([]); 
+          setEvents([]);
         }
 
         const allBookings = {};
         for (const event of data) {
-          const ticketRes = await fetch(`http://localhost:5000/api/tickets/by-event/${event._id}`);
+          const ticketRes = await fetch(`http://localhost:5000/api/tickets/by-event/${event._id}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          });
           const ticketData = await ticketRes.json();
           allBookings[event._id] = ticketData;
         }
@@ -37,10 +48,10 @@ function OrganizerDashboard() {
       }
     };
 
-    if (organizerId) {
+    if (organizerId && token) {
       fetchEvents();
     }
-  }, [organizerId]);
+  }, [organizerId, token]);
 
   if (!Array.isArray(events)) {
     return <p>Loading events...</p>;
