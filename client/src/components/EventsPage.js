@@ -9,7 +9,8 @@ function EventsPage() {
   const [myBookings, setMyBookings] = useState([]);
 
   const navigate = useNavigate();
-
+console.log(showBookings)
+console.log(setMyBookings)
   // Fetch events
   useEffect(() => {
     const fetchEvents = async () => {

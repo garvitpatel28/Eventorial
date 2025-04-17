@@ -6,7 +6,7 @@ function OrganizerDashboard() {
   const [events, setEvents] = useState([]);
   const [bookings, setBookings] = useState({});
   const organizerId = localStorage.getItem('userId'); 
-  const token = localStorage.getItem('token'); // ⬅️ Get the JWT token from localStorage
+  const token = localStorage.getItem('token'); 
 
   useEffect(() => {
     const fetchEvents = async () => {

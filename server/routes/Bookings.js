@@ -22,18 +22,18 @@ const authenticateUser = (req, res, next) => {
   }
 };
 
-const mongoose = require('mongoose'); // make sure mongoose is required
+const mongoose = require('mongoose'); 
 
 
-// Admin route to view bookings
+
 router.get('/admin/bookings', authenticateUser, async (req, res) => {
   try {
-    // Ensure only admins can access this
+    
     if (req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Access denied' });
     }
 
-    // Fetch bookings from the Ticket model
+
     const bookings = await Ticket.find().populate('userId eventId');
     res.status(200).json(bookings);
   } catch (err) {

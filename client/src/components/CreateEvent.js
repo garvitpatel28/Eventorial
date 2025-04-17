@@ -48,7 +48,7 @@ function CreateEvent() {
           'Content-Type': 'application/json',
         },
       });
-
+console.log(response)
       alert('Event created successfully!');
       navigate('/organizer-dashboard');
     } catch (error) {

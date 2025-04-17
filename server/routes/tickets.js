@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const authenticateUser = require('../middleware/auth');
 
 
-// POST /book-event - Book a new ticket
+
 router.post('/book-event', authenticateUser, async (req, res) => {
   try {
     const {
@@ -43,12 +43,10 @@ router.post('/book-event', authenticateUser, async (req, res) => {
 });
 
 
-// GET /tickets/all - Admin: Get all bookings
-// GET all bookings for admin
 router.get('/all', async (req, res) => {
   try {
     const bookings = await Ticket.find()
-      .populate('eventId') // populate event details
+      .populate('eventId')
       .sort({ createdAt: -1 });
     res.json(bookings);
   } catch (err) {
@@ -58,7 +56,6 @@ router.get('/all', async (req, res) => {
 });
 
 
-// GET /tickets/by-event/:eventId
 router.get('/by-event/:eventId', authenticateUser, async (req, res) => {
   try {
     const { eventId } = req.params;

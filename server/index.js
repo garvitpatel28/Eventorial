@@ -172,7 +172,7 @@ async function createDummyEvents(adminId) {
   }
 }
 
-// Fetch events endpoint
+
 app.get('/events', async (req, res) => {
   try {
     console.log('Fetching events from the database...');

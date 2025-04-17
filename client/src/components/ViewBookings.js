@@ -32,7 +32,7 @@ function ViewTicketBooking() {
         
         const data = await response.json();
 
-        // Ensure data is an array before setting it
+        
         if (Array.isArray(data)) {
           setBookings(data);
         } else {

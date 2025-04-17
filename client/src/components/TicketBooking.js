@@ -16,9 +16,9 @@ function TicketBooking() {
     numberOfTickets: 1,
     seatingPreference: 'Standard',
     eventId: '',
-    userId: '' // Ensure userId is part of the formData
+    userId: '' 
   });
-
+console.log(userId)
   useEffect(() => {
     // Get the user from localStorage
     const storedUserId = localStorage.getItem('userId');
