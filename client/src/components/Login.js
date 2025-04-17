@@ -28,7 +28,7 @@ function Login() {
       // Store token and userId in localStorage
       localStorage.setItem("token", token);
       localStorage.setItem("userId", _id); // Store the userId as well
-      localStorage.setItem("user", JSON.stringify(user)); // ✅ correct localStorage usage
+      localStorage.setItem("user", JSON.stringify(user)); // correct localStorage usage
   
       if (user.userType === "admin") {
         navigate("/admin-dashboard");
