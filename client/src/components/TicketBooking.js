@@ -20,13 +20,13 @@ function TicketBooking() {
   });
 console.log(userId)
   useEffect(() => {
-    // Get the user from localStorage
+   
     const storedUserId = localStorage.getItem('userId');
     if (storedUserId) {
       setUserId(storedUserId);
       setFormData(prev => ({ ...prev, userId: storedUserId }));
     } else {
-      // Redirect to login if no userId found
+    
       alert('Please log in to book tickets');
       navigate('/login');
     }
@@ -34,7 +34,7 @@ console.log(userId)
     if (eventId) {
       setFormData(prev => ({ ...prev, eventId }));
     }
-  }, [eventId, navigate]); // Re-run effect if eventId or navigate changes
+  }, [eventId, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
