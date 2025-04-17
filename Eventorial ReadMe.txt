@@ -9,5 +9,4 @@ node index.js
 
 at last run these commands terminal:
 cd client
-npm start
 
